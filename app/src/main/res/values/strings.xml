@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">TeleComm</string>
+    <string name="homePageText">Start your Chatting in TeleComm\nIt is Free</string>
+    <string name="homeScreenStartmsgBtnText">Start Messaging</string>
+    <string name="phoneverifyText">Your Phone Number</string>
+    <string name="phoneVerifyTextDesc">Please enter your mobile phone number</string>
+    <string name="next">Next</string>
 </resources>

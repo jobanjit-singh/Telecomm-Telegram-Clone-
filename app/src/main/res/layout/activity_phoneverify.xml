@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    tools:context=".PhoneVerifyActivity">
+
+    <TextView
+        android:id="@+id/phoneVerifyText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/phoneverifyText"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/phoneVerifyTextDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/phoneVerifyText"
+        android:text="@string/phoneVerifyTextDesc"
+        android:layout_marginTop="10dp"
+        android:textSize="15dp"
+        />
+
+    <EditText
+        android:id="@+id/phoneVerifyMobileNumberEdittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Phone Number"
+        android:inputType="number"
+        android:maxLength="10"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/mainColor"
+        android:layout_below="@id/phoneVerifyTextDesc"
+        android:textCursorDrawable="@drawable/cursorcolor"/>
+
+    <Button
+        android:id="@+id/phoneVerifyNextBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="@string/next"
+        android:textAllCaps="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/buttonback"
+        android:layout_alignParentBottom="true"
+        />
+
+</RelativeLayout>
