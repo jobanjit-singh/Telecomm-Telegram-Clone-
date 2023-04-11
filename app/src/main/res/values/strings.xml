@@ -5,4 +5,6 @@
     <string name="phoneverifyText">Your Phone Number</string>
     <string name="phoneVerifyTextDesc">Please enter your mobile phone number</string>
     <string name="next">Next</string>
+    <string name="otpverifyheading">OTP Verification</string>
+    <string name="otpverifyBtnTxt">Verify</string>
 </resources>

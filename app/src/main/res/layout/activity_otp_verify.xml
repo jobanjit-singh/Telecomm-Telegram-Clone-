@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    tools:context=".OtpVerifyActivity">
+
+    <TextView
+        android:id="@+id/otpVerifyHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/otpverifyheading"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:textColor="?android:textColorPrimary"
+        />
+
+    <EditText
+        android:id="@+id/otpVerifyOtpEdittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/otpVerifyHeading"
+        android:layout_marginTop="10dp"
+        android:inputType="number"
+        android:maxLength="6"
+        android:hint="OTP"
+        android:backgroundTint="@color/mainColor"
+        android:layout_centerHorizontal="true"
+        android:textCursorDrawable="@drawable/cursorcolor"/>
+
+    <Button
+        android:id="@+id/otpVerifyBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/otpverifyBtnTxt"
+        android:background="@drawable/buttonback"/>
+
+</RelativeLayout>

@@ -32,6 +32,7 @@ public class HomeScreen extends AppCompatActivity {
             public void onClick(View view){
                 Intent i = new Intent(HomeScreen.this, PhoneVerifyActivity.class);
                 startActivity(i);
+                finish();
             }
         });
     }

@@ -12,6 +12,9 @@
         android:theme="@style/Theme.TeleComm"
         tools:targetApi="31">
         <activity
+            android:name=".OtpVerifyActivity"
+            android:exported="false" />
+        <activity
             android:name=".HomeScreen"
             android:exported="false" />
         <activity

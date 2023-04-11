@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "917040178852",
+    "project_id": "telecomm-1a6ed",
+    "storage_bucket": "telecomm-1a6ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:917040178852:android:0f5c1e5ef67ab92dd7e831",
+        "android_client_info": {
+          "package_name": "com.example.telecomm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "917040178852-aq729c7qird68uc1ls0vqv5rrhjj3q60.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBI9rQF_LXAkR8ejstiQ93BGMauZ5MqzoA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "917040178852-aq729c7qird68uc1ls0vqv5rrhjj3q60.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
