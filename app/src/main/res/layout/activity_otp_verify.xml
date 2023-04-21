@@ -18,11 +18,19 @@
         android:textColor="?android:textColorPrimary"
         />
 
+    <TextView
+        android:id="@+id/otpVerifyDesc"
+        android:layout_below="@id/otpVerifyHeading"
+        android:text="@string/otpVerifyDesc"
+        android:textColor="?android:textColorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <EditText
         android:id="@+id/otpVerifyOtpEdittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/otpVerifyHeading"
+        android:layout_below="@id/otpVerifyDesc"
         android:layout_marginTop="10dp"
         android:inputType="number"
         android:maxLength="6"
