@@ -9,4 +9,5 @@
     <string name="otpverifyBtnTxt">Verify</string>
     <string name="otpVerifyDesc">The OTP is send on </string>
     <string name="customDialogWarning">Dont do any operation</string>
+    <string name="addDetailsHeadingWelcome">Welcome to TeleComm</string>
 </resources>

@@ -7,18 +7,17 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:indeterminateTint="@color/white"
+            android:indeterminateTint="?android:textColorPrimary"
             android:padding="5dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/loading_dialog_back"/>
+            android:layout_margin="5dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/loading_dialog_back"
             android:text="@string/customDialogWarning"
-            android:textColor="@color/white"
+            android:textColor="?android:textColorPrimary"
             android:padding="5dp"/>
 </LinearLayout>

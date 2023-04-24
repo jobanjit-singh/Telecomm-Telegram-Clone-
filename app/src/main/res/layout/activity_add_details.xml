@@ -1,9 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
     tools:context=".AddDetails">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/addDetailWelcomeTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/addDetailsHeadingWelcome"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:textColor="@color/mainColor"/>
+
+    <RelativeLayout
+        android:id="@+id/addDetailNameLayout"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/addDetailWelcomeTxt">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/addDetailImgCard"
+            app:cardCornerRadius="50dp"
+            app:cardElevation="2dp"
+            app:cardPreventCornerOverlap="true"
+            android:layout_width="100dp"
+            android:layout_height="100dp">
+            <ImageView
+                android:id="@+id/addDetailAddImageView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/emptyimage"/>
+        </androidx.cardview.widget.CardView>
+
+        <EditText
+            android:id="@+id/addDetailNameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name"
+            android:backgroundTint="@color/mainColor"
+            android:textCursorDrawable="@drawable/cursorcolor"
+            android:layout_toRightOf="@id/addDetailImgCard"/>
+
+        <EditText
+            android:id="@+id/addDetailNumberEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/addDetailImgCard"
+            android:layout_below="@id/addDetailNameEditText"
+            android:backgroundTint="@color/mainColor"
+            android:textCursorDrawable="@drawable/cursorcolor"
+            android:enabled="false"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/addDetailFishImage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/add_details_back"
+        android:layout_below="@id/addDetailNameLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        />
+
+    <Button
+        android:id="@+id/addDetailNextBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttonback"
+        android:layout_margin="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/next"/>
+
+</RelativeLayout>
