@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.content.Intent;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class SplashScreen extends AppCompatActivity {
 
     ImageView splashImage;
@@ -32,8 +35,13 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(SplashScreen.this,HomeScreen.class);
-                startActivity(i);
+                FirebaseUser fb = FirebaseAuth.getInstance().getCurrentUser();
+                if(fb!=null){
+                    startActivity(new Intent(SplashScreen.this,ChatActivity.class));
+                }
+                else{
+                    startActivity(new Intent(SplashScreen.this,HomeScreen.class));
+                }
                 finish();
             }
         },3000);

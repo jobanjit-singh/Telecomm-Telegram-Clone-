@@ -1,9 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="10dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AccountCreatedActivity">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/account_created_card"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:backgroundTint="@color/mainColor"
+        app:cardCornerRadius="50dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardElevation="5dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/telecomm"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <ImageView
+        android:id="@+id/acoount_created_cycle_Image"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/accountcreatedcycle"
+        android:layout_margin="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/account_created_alldone_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/account_created_AllDoneText"
+        android:textSize="40dp"
+        android:textColor="@color/mainColor"
+        android:textStyle="bold"
+        android:layout_marginTop="70dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <Button
+        android:id="@+id/account_created_start_chat_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttonback"
+        android:text="@string/account_created_Start_Chatting"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

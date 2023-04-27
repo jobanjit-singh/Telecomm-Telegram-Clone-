@@ -10,4 +10,6 @@
     <string name="otpVerifyDesc">The OTP is send on </string>
     <string name="customDialogWarning">Dont do any operation</string>
     <string name="addDetailsHeadingWelcome">Welcome to TeleComm</string>
+    <string name="account_created_AllDoneText">All Done!</string>
+    <string name="account_created_Start_Chatting">Start Chat</string>
 </resources>

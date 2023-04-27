@@ -111,8 +111,8 @@ public class AddDetails extends AppCompatActivity {
     public void adddetail(Bitmap pf,String userName,String userNumber){
         HashMap<String,Object> data = new HashMap<>();
         data.put("Profile Image",pf);
-        data.put("User Name",userName);
-        data.put("User Number",userNumber);
+        data.put("User Name",new EncryptDecryptData().dataEncryption(userName));
+        data.put("User Number",new EncryptDecryptData().dataEncryption(userNumber));
 
         FirebaseDatabase.getInstance().getReference().child("chat").child(userNumber).setValue(data)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {

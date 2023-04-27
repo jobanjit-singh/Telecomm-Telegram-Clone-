@@ -15,14 +15,17 @@
         android:theme="@style/Theme.TeleComm"
         tools:targetApi="31">
         <activity
-            android:name=".AccountCreatedActivity"
+            android:name=".ChatActivity"
             android:exported="false" />
+        <activity
+            android:name=".AccountCreatedActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
             android:name=".AddDetails"
             android:exported="true"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".OtpVerifyActivity"
             android:exported="false"
