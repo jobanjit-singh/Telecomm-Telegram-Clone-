@@ -82,6 +82,9 @@ public class AddDetails extends AppCompatActivity {
                 else if(empty.sameAs(p1)){
                     Toast.makeText(AddDetails.this, "Please fill the details", Toast.LENGTH_SHORT).show();
                 }
+                else if(addDetailNameEdit.getText().toString().isEmpty()){
+                    Toast.makeText(AddDetails.this, "Please fill the details", Toast.LENGTH_SHORT).show();
+                }
                 else{
                     addDetailNextBtn.setText("Please Wait...");
                     adddetail(profileImage,addDetailNameEdit.getText().toString(),addDetailNumberEdit.getText().toString());
