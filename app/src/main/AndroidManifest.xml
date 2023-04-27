@@ -25,7 +25,8 @@
         <activity
             android:name=".AddDetails"
             android:exported="true"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+        </activity>
         <activity
             android:name=".OtpVerifyActivity"
             android:exported="false"
@@ -38,6 +39,7 @@
             android:name=".SplashScreen"
             android:exported="true"
             android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

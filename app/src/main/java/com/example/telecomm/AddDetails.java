@@ -13,6 +13,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -23,12 +24,15 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -39,6 +43,7 @@ public class AddDetails extends AppCompatActivity {
     CardView addDetailImgCard;
     Button addDetailNextBtn;
     int SELECT_PICTURE = 200;
+    Uri profileImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,11 +67,7 @@ public class AddDetails extends AppCompatActivity {
         addDetailAddImage.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Bitmap p1 = ((BitmapDrawable) addDetailAddImage.getDrawable()).getBitmap();
-                Bitmap emptyImage = BitmapFactory.decodeResource(getResources(),R.drawable.emptyimage);
-                if(p1.getHeight()==emptyImage.getHeight() || p1.getWidth()==emptyImage.getWidth()){
-                    imageChooser();
-                }
+                imageChooser();
             }
         });
 
@@ -74,12 +75,14 @@ public class AddDetails extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Bitmap p1 = ((BitmapDrawable)addDetailAddImage.getDrawable()).getBitmap();
-                Bitmap empty = BitmapFactory.decodeResource(getResources(),R.drawable.emptyimage);
-                if((p1.getWidth() == empty.getWidth() || p1.getHeight()==empty.getHeight()) || addDetailNameEdit.getText().toString().isEmpty()){
+                Bitmap empty = ((BitmapDrawable)getResources().getDrawable(R.drawable.emptyimage)).getBitmap();
+                if(empty.sameAs(p1) && addDetailNameEdit.getText().toString().isEmpty()){
+                    Toast.makeText(AddDetails.this, "Please fill the details", Toast.LENGTH_SHORT).show();
+                }
+                else if(empty.sameAs(p1)){
                     Toast.makeText(AddDetails.this, "Please fill the details", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Bitmap profileImage = ((BitmapDrawable)addDetailAddImage.getDrawable()).getBitmap();
                     addDetailNextBtn.setText("Please Wait...");
                     adddetail(profileImage,addDetailNameEdit.getText().toString(),addDetailNumberEdit.getText().toString());
                 }
@@ -99,32 +102,51 @@ public class AddDetails extends AppCompatActivity {
             if(requestCode == SELECT_PICTURE){
                 if(data != null){
                     Uri image = data.getData();
-                    try {
-                        addDetailAddImage.setImageBitmap(BitmapFactory.decodeStream(this.getContentResolver().openInputStream(image)));
-                    } catch (FileNotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
+                    profileImage = image;
+                    addDetailAddImage.setImageURI(image);
                 }
             }
         }
     }
-    public void adddetail(Bitmap pf,String userName,String userNumber){
+    public void adddetail(Uri pf,String userName,String userNumber){
         HashMap<String,Object> data = new HashMap<>();
-        data.put("Profile Image",pf);
         data.put("User Name",new EncryptDecryptData().dataEncryption(userName));
         data.put("User Number",new EncryptDecryptData().dataEncryption(userNumber));
 
-        FirebaseDatabase.getInstance().getReference().child("chat").child(userNumber).setValue(data)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
+        FirebaseStorage.getInstance().getReference().child("Profile Image").child(userNumber)
+                .putFile(pf).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        startActivity(new Intent(AddDetails.this,AccountCreatedActivity.class));
-                        finish();
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                        FirebaseStorage.getInstance().getReference().child("Profile Image").child(userNumber)
+                                .getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        data.put("Profile Image", uri.toString());
+                                        FirebaseDatabase.getInstance().getReference().child("chat")
+                                                .child(userNumber).setValue(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        startActivity(new Intent(AddDetails.this,AccountCreatedActivity.class));
+                                                        finish();
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Toast.makeText(AddDetails.this, "There is Error in Database", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(AddDetails.this, "There is Error in Generating URL", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(AddDetails.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddDetails.this, "There is Error in Uploading Profile Picture", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
