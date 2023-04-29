@@ -34,7 +34,9 @@ public class AccountCreatedActivity extends AppCompatActivity {
         account_created_start_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AccountCreatedActivity.this,ChatActivity.class));
+                Intent i = new Intent(AccountCreatedActivity.this,ChatActivity.class);
+                i.putExtra("Number",getIntent().getStringExtra("Number"));
+                startActivity(i);
                 finish();
             }
         });

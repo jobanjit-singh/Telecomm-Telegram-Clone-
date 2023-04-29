@@ -12,4 +12,8 @@
     <string name="addDetailsHeadingWelcome">Welcome to TeleComm</string>
     <string name="account_created_AllDoneText">All Done!</string>
     <string name="account_created_Start_Chatting">Start Chat</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="userListEmptyTxt">No User Found</string>
 </resources>

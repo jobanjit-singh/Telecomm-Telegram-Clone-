@@ -129,7 +129,9 @@ public class AddDetails extends AppCompatActivity {
                                                 .child(userNumber).setValue(data).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
                                                     public void onSuccess(Void unused) {
-                                                        startActivity(new Intent(AddDetails.this,AccountCreatedActivity.class));
+                                                        Intent i = new Intent(AddDetails.this,AccountCreatedActivity.class);
+                                                        i.putExtra("Number",userNumber);
+                                                        startActivity(i);
                                                         finish();
                                                     }
                                                 }).addOnFailureListener(new OnFailureListener() {

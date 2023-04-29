@@ -10,19 +10,15 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ChatActivity extends AppCompatActivity {
-    TextView signout;
+    private String number;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        signout = findViewById(R.id.sign);
-        signout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(ChatActivity.this,HomeScreen.class));
-                finish();
-            }
-        });
+//        number = getIntent().getStringExtra("Number");
+
+        number = "+918727864043";
+        ContactListFragment frag = (ContactListFragment) getSupportFragmentManager().findFragmentById(R.id.ChatActivityContactListFrag);
+        frag.setData(number);
     }
 }

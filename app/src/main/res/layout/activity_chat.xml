@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,10 +8,19 @@
     android:gravity="center"
     tools:context=".ChatActivity">
 
-    <TextView
-        android:id="@+id/sign"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Signout"/>
+    <fragment
+        android:id="@+id/ChatActivityContactListFrag"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.example.telecomm.ContactListFragment"
+        android:layout_weight="3"
+        />
+    <fragment
+        android:id="@+id/ChatActivityChatFrag"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.example.telecomm.ChatFragment"
+        android:layout_weight="1"
+        />
 
-</RelativeLayout>
+</LinearLayout>
