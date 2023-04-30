@@ -37,7 +37,9 @@ public class SplashScreen extends AppCompatActivity {
             public void run() {
                 FirebaseUser fb = FirebaseAuth.getInstance().getCurrentUser();
                 if(fb!=null){
-                    startActivity(new Intent(SplashScreen.this,ChatActivity.class));
+                    Intent i = new Intent(SplashScreen.this,ChatActivity.class);
+                    i.putExtra("Number",fb.getPhoneNumber());
+                    startActivity(i);
                 }
                 else{
                     startActivity(new Intent(SplashScreen.this,HomeScreen.class));

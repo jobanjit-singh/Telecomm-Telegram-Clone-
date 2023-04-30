@@ -107,7 +107,9 @@ public class UserListActivity extends AppCompatActivity {
                         ref.child(userNumber).child("chats").child(number).setValue("Hello");
                         ref.child(number).child("chats").child(userNumber).setValue("Hello");
                         Toast.makeText(UserListActivity.this, "Chat is Added", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(UserListActivity.this,ChatActivity.class));
+                        Intent in = new Intent(UserListActivity.this,ChatActivity.class);
+                        in.putExtra("Number",userNumber);
+                        startActivity(in);
                         finish();
                     }
                 });
@@ -132,5 +134,15 @@ public class UserListActivity extends AppCompatActivity {
                 finish();
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(UserListActivity.this,ChatActivity.class);
+        i.putExtra("Number",userNumber);
+        startActivity(i);
+        finish();
+
     }
 }

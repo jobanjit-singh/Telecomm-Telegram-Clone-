@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.telephony.TelephonyManager;
@@ -16,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -26,10 +29,16 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-public class ContactListFragment extends Fragment {
+public class ContactListFragment extends Fragment implements ChatListClick {
     Button contactFragAddChatBtn;
     RecyclerView contactFragRecyclarView;
+    ProgressBar contactFragProgressBar;
+    View chatListFragment;
+    View chatFrag;
+    onButtonClickListener mlistener;
+    private ChatListFragmentAdapter adapter;
     private ArrayList<String> numbers = new ArrayList<>();
     private String userNumber="";
     private ArrayList<ChatContactListDataModel> chatList = new ArrayList<>();
@@ -52,6 +61,7 @@ public class ContactListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         contactFragAddChatBtn = getView().findViewById(R.id.ContactFragAddChatBtn);
         contactFragRecyclarView = getView().findViewById(R.id.ContactListFragRecyclerView);
+        contactFragProgressBar = getView().findViewById(R.id.ContactFragProgressBar);
         contactFragAddChatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,7 +74,7 @@ public class ContactListFragment extends Fragment {
     }
     public void getUserNumbers(){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("chat");
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot data : snapshot.getChildren()){
@@ -72,9 +82,9 @@ public class ContactListFragment extends Fragment {
                 }
                 Log.d("Data","Data is come");
                 contactFragAddChatBtn.setText("+");
-                Intent i = new Intent(getContext(),UserListActivity.class);
                 Bundle numberData = new Bundle();
                 numberData.putStringArrayList("Number Data",numbers);
+                Intent i = new Intent(getContext(),UserListActivity.class);
                 i.putExtra("UserNumber",numberData);
                 i.putExtra("User",userNumber);
                 startActivity(i);
@@ -87,14 +97,16 @@ public class ContactListFragment extends Fragment {
             }
         });
     }
-    public void setData(String n){
+    public void setData(String n,View chatListFragment,View ChatFrag){
         userNumber = n;
-
+        this.chatListFragment = chatListFragment;
+        this.chatFrag = ChatFrag;
         FirebaseDatabase.getInstance().getReference().child("chat")
                 .child(userNumber).child("chats")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
+                .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        chatNumbers.clear();
                         for(DataSnapshot data : snapshot.getChildren()) {
                             chatNumbers.add(data.getKey());
                         }
@@ -107,6 +119,52 @@ public class ContactListFragment extends Fragment {
                 });
 
         //Get User Details for contact list
+        adapter = new ChatListFragmentAdapter(getContext(),chatList,this);
+        contactFragRecyclarView.setLayoutManager(new LinearLayoutManager(getContext()));
+        contactFragRecyclarView.setAdapter(adapter);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("chat");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                chatList.clear();
+                for(DataSnapshot data:snapshot.getChildren()){
+                    if(chatNumbers.contains(data.getKey())){
+                        ChatContactListDataModel c = new ChatContactListDataModel(
+                                new EncryptDecryptData().dataDecryption(data.child("User Name").getValue(String.class)),
+                                data.child("Profile Image").getValue(String.class),
+                                new EncryptDecryptData().dataDecryption(data.child("User Number").getValue(String.class))
+                        );
+                        chatList.add(c);
+                    }
+                }
+                Log.d("Data is Present","List Chat"+String.valueOf(chatList.size()));
+                adapter.notifyDataSetChanged();
+                contactFragProgressBar.setVisibility(View.GONE);
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Error is fetching contacts details", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+
+    }
+
+    @Override
+    public void onClickList(ChatContactListDataModel c) {
+        mlistener.onButtonClick(c);
+        chatListFragment.setVisibility(View.GONE);
+    }
+    public interface onButtonClickListener{
+        void onButtonClick(ChatContactListDataModel c);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mlistener = (onButtonClickListener) context;
     }
 }

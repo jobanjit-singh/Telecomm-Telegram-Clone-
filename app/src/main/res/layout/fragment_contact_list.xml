@@ -2,6 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ChatContactListContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
@@ -21,4 +22,10 @@
         android:background="@drawable/buttonback"
         android:text="+"
         android:layout_alignParentBottom="true"/>
+    <ProgressBar
+        android:id="@+id/ContactFragProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:indeterminateTint="@color/mainColor"/>
 </RelativeLayout>
