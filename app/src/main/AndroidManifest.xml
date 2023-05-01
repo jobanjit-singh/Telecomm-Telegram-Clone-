@@ -21,7 +21,8 @@
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ChatActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".AccountCreatedActivity"

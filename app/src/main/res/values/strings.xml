@@ -17,4 +17,5 @@
 
     <string name="userListEmptyTxt">No User Found</string>
     <string name="chatActivitySignoutTxt">Sign Out</string>
+    <string name="SendReceiveFragSendMsgHint">Type your message..</string>
 </resources>
