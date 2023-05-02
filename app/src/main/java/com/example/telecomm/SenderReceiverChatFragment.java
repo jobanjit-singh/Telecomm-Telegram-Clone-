@@ -1,6 +1,9 @@
 package com.example.telecomm;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,7 +36,7 @@ import java.util.List;
 
 public class SenderReceiverChatFragment extends Fragment {
     String ReceiverUserName,ReceiverProfileImage,ReceiverUserNumber,SenderUserNumber;
-    ImageView SendReceiveBackBtn,SendReceiveProfileImage,SendReceiveSendBtn;
+    ImageView SendReceiveBackBtn,SendReceiveProfileImage,SendReceiveSendBtn,SendReceiveCallBtn,SendReceiveDeleteChatBtn;
     TextView SendReceiveUserName;
     EditText SendReceiveMsgEdittext;
     RecyclerView SendReceiveRecyclerView;
@@ -60,6 +63,51 @@ public class SenderReceiverChatFragment extends Fragment {
         SendReceiveMsgEdittext = getView().findViewById(R.id.SendReceiveMsgEditText);
         SendReceiveSendBtn = getView().findViewById(R.id.SendReceiveSendBtn);
         SendReceiveRecyclerView = getView().findViewById(R.id.SendReceiveRecyclerView);
+        SendReceiveCallBtn = getView().findViewById(R.id.SendReceiveCallBtn);
+        SendReceiveDeleteChatBtn = getView().findViewById(R.id.SendReceiveDeleteChatBtn);
+
+        SendReceiveDeleteChatBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle(R.string.confirm);
+                builder.setMessage(R.string.are_you_sure);
+                builder.setCancelable(false);
+                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        FirebaseDatabase.getInstance().getReference("chat")
+                                .child(SenderUserNumber)
+                                .child("chats")
+                                .child(ReceiverUserNumber)
+                                .setValue("")
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(getContext(), "Chat is Deleted", Toast.LENGTH_SHORT).show();
+                                        dialogInterface.dismiss();
+                                    }
+                                });
+                    }
+                });
+                builder.setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                builder.show();
+            }
+        });
+
+        SendReceiveCallBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:"+ReceiverUserNumber.substring(3)));
+                startActivity(i);
+            }
+        });
 
         Glide.with(getContext()).load(Uri.parse(ReceiverProfileImage)).into(SendReceiveProfileImage);
         SendReceiveUserName.setText(ReceiverUserName);
@@ -130,12 +178,12 @@ public class SenderReceiverChatFragment extends Fragment {
                         }
                         MessageAdapter adapter = new MessageAdapter(Messages,getContext());
                         LinearLayoutManager layout = new LinearLayoutManager(getContext());
-//                        layout.smoothScrollToPosition(SendReceiveRecyclerView,null,10);
                         layout.setStackFromEnd(true);
                         SendReceiveRecyclerView.setLayoutManager(layout);
                         SendReceiveRecyclerView.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
-                        Log.d("Data is Present","Chats List Size is "+String.valueOf(Messages.size()));
+                        adapter.notifyItemInserted(Messages.size()-1);
+                        SendReceiveRecyclerView.scrollToPosition(Messages.size()-1);
                     }
 
                     @Override

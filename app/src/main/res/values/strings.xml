@@ -18,4 +18,9 @@
     <string name="userListEmptyTxt">No User Found</string>
     <string name="chatActivitySignoutTxt">Sign Out</string>
     <string name="SendReceiveFragSendMsgHint">Type your message..</string>
+
+    <string name="confirm">Confirm</string>
+    <string name="are_you_sure">Are You Sure?</string>
+    <string name="ok">Ok</string>
+    <string name="Cancel">Cancel</string>
 </resources>
