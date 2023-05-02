@@ -5,6 +5,7 @@
     android:id="@+id/chat_list_fragment_card_view"
     app:cardElevation="5dp"
     app:cardCornerRadius="5dp"
+    app:cardBackgroundColor="@android:color/transparent"
     android:layout_margin="5dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
